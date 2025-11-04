@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Cuisines</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Cuisine Logo" class="logo-img">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#world-cuisines">Cuisines</a></li>
+            <li><a href="About.html">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Introduction -->
+    <main>
+        <section class="intro-section">
+            <div class="intro-text">
+                <h1>Explore the Great Cuisines of the World</h1>
+                <p>
+                    Food is a universal language — a way for cultures to share their history, creativity, and love.
+                    This website celebrates the five great culinary traditions that have inspired chefs and food lovers
+                    across the globe: <strong>French</strong>, <strong>Italian</strong>, <strong>Japanese</strong>,
+                    <strong>Chinese</strong>, and <strong>Mexican</strong>.
+                </p>
+            </div>
+        </section>
+
+        <!-- Vue App -->
+        <div id="app" class="app-container">
+            <div class="info-card">
+                <img :src="current.img" alt="Cuisine Image" class="info-img">
+                <h2 v-if="showTitle">{{ current.title }}</h2>
+                <p v-else>{{ current.def }}</p>
+                <button @click="toggle">{{ showTitle ? 'Show Description' : 'Show Title' }}</button>
+            </div>
+
+            <div class="nav-buttons">
+                <button @click="prev">Previous</button>
+                <button @click="next">Next</button>
+            </div>
+        </div>
+
+        <script>
+            const cuisines = [
+                {
+                    title: "French Cuisine 🇫🇷",
+                    img: "https://images.unsplash.com/photo-1604908177228-6e4b24b37c77",
+                    def: "French cuisine is elegant and refined, known for its sauces, pastries, and delicate flavors. From croissants to coq au vin, it’s a blend of tradition and artistry."
+                },
+                {
+                    title: "Italian Cuisine 🇮🇹",
+                    img: "https://images.unsplash.com/photo-1603133872878-684f208fb84b",
+                    def: "Italian cuisine celebrates simplicity and passion. Fresh pasta, tomatoes, olive oil, and herbs define the Mediterranean soul of every Italian dish."
+                },
+                {
+                    title: "Japanese Cuisine 🇯🇵",
+                    img: "https://images.unsplash.com/photo-1553621042-f6e147245754",
+                    def: "Japanese food combines precision and beauty. Sushi, ramen, and tempura reflect harmony between nature, presentation, and taste."
+                },
+                {
+                    title: "Chinese Cuisine 🇨🇳",
+                    img: "https://images.unsplash.com/photo-1600628422019-01d1d6d3e01d",
+                    def: "Chinese cuisine is one of the oldest and most diverse in the world. Stir-fried noodles, dumplings, and flavorful sauces embody balance and boldness."
+                },
+                {
+                    title: "Mexican Cuisine 🇲🇽",
+                    img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092",
+                    def: "Mexican food is vibrant and full of spice — tacos, guacamole, mole, and tamales express the country’s colorful heritage and festive spirit."
+                }
+            ];
+
+            new Vue({
+                el: '#app',
+                data: {
+                    cuisines,
+                    index: 0,
+                    showTitle: true
+                },
+                computed: {
+                    current() {
+                        return this.cuisines[this.index];
+                    }
+                },
+                methods: {
+                    next() {
+                        this.index = (this.index + 1) % this.cuisines.length;
+                        this.showTitle = true;
+                    },
+                    prev() {
+                        this.index = (this.index - 1 + this.cuisines.length) % this.cuisines.length;
+                        this.showTitle = true;
+                    },
+                    toggle() {
+                        this.showTitle = !this.showTitle;
+                    }
+                }
+            });
+        </script>
+
+      
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-branding">
+                <p>A project celebrating global gastronomy — created by <strong>Rayan</strong> & <strong>Léo</strong>.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 WorldCuisines. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
